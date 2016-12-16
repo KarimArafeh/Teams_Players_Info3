@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,10 +86,20 @@ public class MainActivityFragment extends Fragment {
     }
 
     public void refresh() {
-        competitionAPI api = new competitionAPI();
-        String result = api.getCompeticion();
+                
+    }
 
-        Log.d("competicion --->", result);
+    private class RefreshDataTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            competitionAPI api = new competitionAPI();
+            String result  = api.getCompeticion();
+
+            Log.d("competicion --->", result);
+
+            return null;
+        }
     }
 
 }
