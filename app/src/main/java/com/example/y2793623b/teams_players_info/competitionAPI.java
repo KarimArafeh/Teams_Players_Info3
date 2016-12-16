@@ -20,8 +20,13 @@ public class competitionAPI {
                 .build();
         String url = builtUri.toString();
 
+        return doCall(url);
+    }
+
+    private String doCall(String url) {
+        String JsonResponse = null;
         try {
-            String JsonResponse = HttpUtils.get(url);
+            JsonResponse = HttpUtils.get(url);
             return JsonResponse;
         } catch (IOException e) {
             e.printStackTrace();
