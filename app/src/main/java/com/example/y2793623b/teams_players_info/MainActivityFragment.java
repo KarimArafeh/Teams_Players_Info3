@@ -1,9 +1,9 @@
 package com.example.y2793623b.teams_players_info;
 
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +25,7 @@ public class MainActivityFragment extends Fragment {
 
     private ArrayList<String> items;
     private ArrayAdapter<String> adapter;
+
 
     public MainActivityFragment() {
     }
@@ -43,22 +43,24 @@ public class MainActivityFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        ListView listcompetition = (ListView) view.findViewById(R.id.lvCompetitions);
+        ListView lvInfo = (ListView) view.findViewById(R.id.items_list);
 
         String[] data = {"data1","data2","data3","data4","data5","data6"};
         items = new ArrayList<>(Arrays.asList(data));
 
-        adapter = new ArrayAdapter<>(
+        adapter = new ArrayAdapter<String>(
                 getContext(),
-                R.layout.lv_competitions_row,
-                R.id.Tit_Competition,
-                items
-        );
+                R.layout.lv_list_row,
+                R.id.Titulo,
+                items);
 
-        listcompetition.setAdapter(adapter);
-                
+
+        lvInfo.setAdapter(adapter);
+
+
 
         return view;
+
     }
 
 
@@ -67,6 +69,7 @@ public class MainActivityFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.menu_competition_fragment, menu);
+
     }
 
     @Override
@@ -87,18 +90,20 @@ public class MainActivityFragment extends Fragment {
 
     public void refresh() {
 
-        RefreshDataTask task = new RefreshDataTask();
-        task.execute();
+        RefreshDataTask task1 = new RefreshDataTask();
+        task1.execute();
+
     }
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, Void>{
+    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
-            competitionAPI api = new competitionAPI();
-            String result  = api.getCompeticion();
+            informationAPI api = new informationAPI();
 
-            Log.d("competicion --->", result);
+            ArrayList<Competition> result = api.getCompeticion();
+
+            Log.d("competicion --->", result.toString());
 
             return null;
         }
