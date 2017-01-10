@@ -95,10 +95,10 @@ public class MainActivityFragment extends Fragment {
 
     }
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
+    private class RefreshDataTask extends AsyncTask<Void, Void, Competition> {
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Competition doInBackground(Void... params) {
             informationAPI api = new informationAPI();
 
             ArrayList<Competition> result = api.getCompeticion();

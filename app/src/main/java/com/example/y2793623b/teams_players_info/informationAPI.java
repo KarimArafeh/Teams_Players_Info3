@@ -1,6 +1,7 @@
 package com.example.y2793623b.teams_players_info;
 
 import android.net.Uri;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,33 +45,63 @@ public class informationAPI {
 
         ArrayList<Competition> Competiciones = new ArrayList<>();
 
-
-        JSONObject data = null;
         try {
-            data = new JSONObject(jsonResponse);
+            JSONObject data = new JSONObject(jsonResponse);
+            JSONArray array = new JSONArray();
 
-            JSONArray jsoncompeticiones = data.getJSONArray("Competiciones");
+            for (int i = 0; i < array.length(); i++)
+            {
+                Competition competicion = new Competition();
+                JSONObject jsonCompeticiones = array.getJSONObject(i);
+
+                competicion.setId(jsonCompeticiones.getInt("id"));
+
+
+                Competiciones.add(competicion);
+
+
+            }
+
+
+
+//            JSONObject Array1 = data.getJSONObject("JSON");
+//            JSONArray Array2 = data.getJSONArray("");
+ //           JSONObject cero = data.getJSONObject("id");
+
+            //JSONArray s = Array2.getJSONArray("id");
+
+            //Log.d("contenido ------------->>>>>>" , "--------" + Array2.length());
+
+
+
+            /*
             for (int i = 0; i < jsoncompeticiones.length(); i++)
             {
                 JSONObject jsonCompeticion = jsoncompeticiones.getJSONObject(i);
+                JSONArray Array2 = jsonCompeticion.getJSONArray("JSON");
 
-                Competition competicion = new Competition();
-                competicion.setId(jsonCompeticion.getInt("id"));
-                competicion.setCaption(jsonCompeticion.getString("caption"));
-                competicion.setLeague(jsonCompeticion.getString("league"));
-                competicion.setYear(jsonCompeticion.getString("year"));
-                competicion.setNumberOfTeams(jsonCompeticion.getInt("numberOfTeams"));
-                competicion.setNumberOfGames(jsonCompeticion.getInt("numberOfGames"));
-                competicion.setLastUpdated(jsonCompeticion.getString("lastUpdated"));
+                for (int x = 0; x < Array2.length(); x++)
+                {
+                    Competition competicion = new Competition();
+                    competicion.setId(jsonCompeticion.getInt("id"));
+                    competicion.setCaption(jsonCompeticion.getString("caption"));
+                    competicion.setLeague(jsonCompeticion.getString("league"));
+                    competicion.setYear(jsonCompeticion.getString("year"));
+                    competicion.setNumberOfTeams(jsonCompeticion.getInt("numberOfTeams"));
+                    competicion.setNumberOfGames(jsonCompeticion.getInt("numberOfGames"));
+                    competicion.setLastUpdated(jsonCompeticion.getString("lastUpdated"));
 
-                Competiciones.add(competicion);
+                    Competiciones.add(competicion);
+                }
+
             }
-
+*/
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        //Log.d("competicion -------------->", String.valueOf(Competiciones));
         return Competiciones;
     }
 
