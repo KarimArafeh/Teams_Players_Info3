@@ -23,8 +23,8 @@ import java.util.Arrays;
 public class MainActivityFragment extends Fragment {
 
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Competition> items;
+    private ArrayAdapter<Competition> adapter;
 
 
     public MainActivityFragment() {
@@ -47,7 +47,7 @@ public class MainActivityFragment extends Fragment {
 
 
         items = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(
+        adapter = new ArrayAdapter<>(
                 getContext(),
                 R.layout.lv_list_row,
                 R.id.Titulo,
@@ -117,7 +117,7 @@ public class MainActivityFragment extends Fragment {
             adapter.clear();
             for (Competition compet : competitions)
             {
-                adapter.add(compet.getLeague());
+                adapter.add(compet);
             }
         }
     }
