@@ -40,6 +40,7 @@ public class CompetitionAdapter extends ArrayAdapter<Competition>{
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         caption.setText(compet.getCaption());
+        league.setText(compet.getLeague());
 
         // Retornem la View replena per a mostrarla
         return convertView;
