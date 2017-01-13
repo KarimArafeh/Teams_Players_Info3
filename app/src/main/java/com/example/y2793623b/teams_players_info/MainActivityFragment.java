@@ -24,7 +24,7 @@ public class MainActivityFragment extends Fragment {
 
 
     private ArrayList<Competition> items;
-    private ArrayAdapter<Competition> adapter;
+    private CompetitionAdapter adapter;
 
 
     public MainActivityFragment() {
@@ -47,10 +47,9 @@ public class MainActivityFragment extends Fragment {
 
 
         items = new ArrayList<>();
-        adapter = new ArrayAdapter<>(
+        adapter = new CompetitionAdapter(
                 getContext(),
                 R.layout.lv_list_row,
-                R.id.Titulo,
                 items);
 
 
