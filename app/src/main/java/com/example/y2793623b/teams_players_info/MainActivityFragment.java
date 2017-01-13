@@ -45,6 +45,7 @@ public class MainActivityFragment extends Fragment {
 
         ListView lvInfo = (ListView) view.findViewById(R.id.items_list);
 
+
         String[] data = {"data1","data2","data3","data4","data5","data6"};
         items = new ArrayList<>(Arrays.asList(data));
 
@@ -57,7 +58,7 @@ public class MainActivityFragment extends Fragment {
 
         lvInfo.setAdapter(adapter);
 
-
+        refresh();
 
         return view;
 
@@ -95,17 +96,26 @@ public class MainActivityFragment extends Fragment {
 
     }
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, Competition> {
+    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Competition>> {
 
         @Override
-        protected Competition doInBackground(Void... params) {
+        protected ArrayList<Competition> doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
 
             ArrayList<Competition> result = api.getCompeticion();
 
             Log.d("competicion --->", result.toString());
 
-            return null;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Competition> competitions) {
+            adapter.clear();
+            for (Competition compet : competitions)
+            {
+                adapter.add(compet.getLeague());
+            }
         }
     }
 

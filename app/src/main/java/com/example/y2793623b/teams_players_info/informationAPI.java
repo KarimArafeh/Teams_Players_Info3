@@ -46,15 +46,22 @@ public class informationAPI {
         ArrayList<Competition> Competiciones = new ArrayList<>();
 
         try {
-            JSONObject data = new JSONObject(jsonResponse);
-            JSONArray array = new JSONArray();
+            JSONArray array = new JSONArray(jsonResponse);
 
             for (int i = 0; i < array.length(); i++)
             {
-                Competition competicion = new Competition();
+
                 JSONObject jsonCompeticiones = array.getJSONObject(i);
 
+                Competition competicion = new Competition();
+
                 competicion.setId(jsonCompeticiones.getInt("id"));
+                competicion.setCaption(jsonCompeticiones.getString("caption"));
+                competicion.setLeague(jsonCompeticiones.getString("league"));
+                competicion.setYear(jsonCompeticiones.getString("year"));
+                competicion.setNumberOfTeams(jsonCompeticiones.getInt("numberOfTeams"));
+                competicion.setNumberOfGames(jsonCompeticiones.getInt("numberOfGames"));
+                competicion.setLastUpdated(jsonCompeticiones.getString("lastUpdated"));
 
 
                 Competiciones.add(competicion);
@@ -62,46 +69,10 @@ public class informationAPI {
 
             }
 
-
-
-//            JSONObject Array1 = data.getJSONObject("JSON");
-//            JSONArray Array2 = data.getJSONArray("");
- //           JSONObject cero = data.getJSONObject("id");
-
-            //JSONArray s = Array2.getJSONArray("id");
-
-            //Log.d("contenido ------------->>>>>>" , "--------" + Array2.length());
-
-
-
-            /*
-            for (int i = 0; i < jsoncompeticiones.length(); i++)
-            {
-                JSONObject jsonCompeticion = jsoncompeticiones.getJSONObject(i);
-                JSONArray Array2 = jsonCompeticion.getJSONArray("JSON");
-
-                for (int x = 0; x < Array2.length(); x++)
-                {
-                    Competition competicion = new Competition();
-                    competicion.setId(jsonCompeticion.getInt("id"));
-                    competicion.setCaption(jsonCompeticion.getString("caption"));
-                    competicion.setLeague(jsonCompeticion.getString("league"));
-                    competicion.setYear(jsonCompeticion.getString("year"));
-                    competicion.setNumberOfTeams(jsonCompeticion.getInt("numberOfTeams"));
-                    competicion.setNumberOfGames(jsonCompeticion.getInt("numberOfGames"));
-                    competicion.setLastUpdated(jsonCompeticion.getString("lastUpdated"));
-
-                    Competiciones.add(competicion);
-                }
-
-            }
-*/
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        //Log.d("competicion -------------->", String.valueOf(Competiciones));
         return Competiciones;
     }
 
