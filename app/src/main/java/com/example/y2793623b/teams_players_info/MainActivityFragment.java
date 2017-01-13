@@ -46,9 +46,7 @@ public class MainActivityFragment extends Fragment {
         ListView lvInfo = (ListView) view.findViewById(R.id.items_list);
 
 
-        String[] data = {"data1","data2","data3","data4","data5","data6"};
-        items = new ArrayList<>(Arrays.asList(data));
-
+        items = new ArrayList<>();
         adapter = new ArrayAdapter<String>(
                 getContext(),
                 R.layout.lv_list_row,
@@ -57,8 +55,6 @@ public class MainActivityFragment extends Fragment {
 
 
         lvInfo.setAdapter(adapter);
-
-        refresh();
 
         return view;
 
@@ -87,6 +83,13 @@ public class MainActivityFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refresh();
     }
 
     public void refresh() {
