@@ -1,10 +1,13 @@
 package com.example.y2793623b.teams_players_info;
 
+import java.io.Serializable;
+
 /**
  * Created by y2793623b on 10/01/17.
  */
 
-public class Competition {
+public class Competition implements Serializable{
+
     private int id;
     private String caption;
     private String league;
