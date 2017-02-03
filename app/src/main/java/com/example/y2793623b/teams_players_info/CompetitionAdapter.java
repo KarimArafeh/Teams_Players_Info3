@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -41,6 +42,10 @@ public class CompetitionAdapter extends ArrayAdapter<Competition>{
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         caption.setText(compet.getCaption());
         league.setText(compet.getLeague());
+
+
+
+
 
         // Retornem la View replena per a mostrarla
         return convertView;

@@ -23,6 +23,10 @@
         <activity
             android:name=".info_activity"
             android:label="@string/title_activity_info_activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Equipo_Inof"
+            android:label="@string/title_activity_equipo__inof"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

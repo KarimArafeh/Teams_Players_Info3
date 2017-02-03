@@ -1,5 +1,7 @@
 package com.example.y2793623b.teams_players_info;
 
+import android.util.Log;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,12 +21,17 @@ public class HttpUtils {
         String response = null;
 
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
         try {
+            Log.d("posicion1 : ", urlConnection.toString());
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            Log.d("posicion2 : ", "posicion 2");
             response = readStream(in);
+
         } finally {
             urlConnection.disconnect();
         }
+
         return response;
     }
 

@@ -64,10 +64,16 @@ public class informationAPI {
                 competicion.setLastUpdated(jsonCompeticiones.getString("lastUpdated"));
 
 
+
+
+                JSONObject jsonEquipos = jsonCompeticiones.getJSONObject("_links").getJSONObject("teams");
+
+                competicion.setTeamsLink(jsonEquipos.getString("href"));
+
                 Competiciones.add(competicion);
 
-
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -76,4 +82,66 @@ public class informationAPI {
         return Competiciones;
     }
 
+  
+
+    public ArrayList<Equipo> getEquipo(String urlEquipo) {
+        Uri builtUri = Uri.parse(urlEquipo)
+                .buildUpon()
+
+                .build();
+        String url = builtUri.toString();
+
+        return doCallEquipo(url);
+        
+    }
+
+    private ArrayList<Equipo> doCallEquipo(String url) {
+        String JsonResponse = null;
+        try {
+
+            JsonResponse = HttpUtils.get(url);
+
+            return processJsonEquipo(JsonResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private ArrayList<Equipo> processJsonEquipo(String jsonResponse) {
+        ArrayList<Equipo> equipos = new ArrayList<>();
+
+        try {
+
+            JSONArray array = new JSONObject(jsonResponse).getJSONArray("teams");
+
+            for (int i = 0; i < array.length(); i++)
+            {
+
+
+                JSONObject jsonEquipos = array.getJSONObject(i);
+
+                Equipo equipo = new Equipo();
+
+                equipo.setName(jsonEquipos.getString("name"));
+                equipo.setCode(jsonEquipos.getString("code"));
+                equipo.setShortName(jsonEquipos.getString("shortName"));
+                equipo.setSquadMarketValue(jsonEquipos.getString("squadMarketValue"));
+                equipo.setCrestUrl(jsonEquipos.getString("crestUrl"));
+
+
+               // Log.d("dsgsdfg",equipo.toString());
+
+                equipos.add(equipo);
+
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return equipos;
+    }
 }

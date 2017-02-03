@@ -15,6 +15,7 @@ public class Competition implements Serializable{
     private int numberOfTeams;
     private int numberOfGames;
     private String lastUpdated;
+    private String teamsLink;
 
     public int getId() {
         return id;
@@ -72,6 +73,10 @@ public class Competition implements Serializable{
         this.year = year;
     }
 
+    public String getTeamsLink() {return teamsLink;}
+
+    public void setTeamsLink(String teamsLink) {this.teamsLink = teamsLink;}
+
     @Override
     public String toString() {
         return "Competition{" +
@@ -82,6 +87,8 @@ public class Competition implements Serializable{
                 ", numberOfTeams=" + numberOfTeams +
                 ", numberOfGames=" + numberOfGames +
                 ", lastUpdated='" + lastUpdated + '\'' +
+                ", teamsLink='" + teamsLink + '\'' +
                 '}';
     }
+
 }
