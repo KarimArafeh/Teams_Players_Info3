@@ -91,7 +91,6 @@ public class MainActivityFragment extends Fragment {
                 else {
                     Log.d("No es de la clase competicion ni Equipo ------->>>>> " , " ");
                 }
-
             }
         });
 
