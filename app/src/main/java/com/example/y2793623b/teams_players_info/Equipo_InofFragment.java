@@ -1,13 +1,24 @@
 package com.example.y2793623b.teams_players_info;
 
 import android.content.Intent;
+import android.gesture.GestureLibraries;
+import android.media.Image;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import com.bumptech.glide.Glide;
+
+import android.databinding.DataBindingUtil;
+
+import com.example.y2793623b.teams_players_info.databinding.FragmentEquipoInofBinding;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -16,10 +27,14 @@ public class Equipo_InofFragment extends Fragment {
 
 
     private View view;
+/*
     private TextView textName;
     private TextView textCode;
     private TextView textShortName;
     private TextView textValue;
+    private ImageView teamFoto;
+ */
+    private FragmentEquipoInofBinding binding;
 
 
     public Equipo_InofFragment() {
@@ -29,7 +44,10 @@ public class Equipo_InofFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_equipo__inof, container, false);
+        //view = inflater.inflate(R.layout.fragment_equipo__inof, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_equipo__inof, container, false);
+
+        view = binding.getRoot();
 
 
         Intent i = getActivity().getIntent();
@@ -49,14 +67,12 @@ public class Equipo_InofFragment extends Fragment {
         Log.d("Equipo -------- >", Team.toString());
 
 
-        textName = (TextView) view.findViewById(R.id.txtName);
-        textName.setText(Team.getName());
-        textCode = (TextView) view.findViewById(R.id.txtCode);
-        textCode.setText(Team.getCode());
-        textShortName = (TextView) view.findViewById(R.id.txtShortName);
-        textShortName.setText(Team.getShortName());
-        textValue = (TextView) view.findViewById(R.id.txt_numOfGames);
-        textValue.setText(Team.getSquadMarketValue());
+        binding.txtName.setText("Name : " + Team.getName());
+        binding.txtCode.setText("Code : " + Team.getCode());
+        binding.txtShortName.setText("Short Name : " + Team.getShortName());
+        binding.txtMarketValue.setText("Market value : " + Team.getSquadMarketValue());
+        Glide.with(getContext()).load(Team.getCrestUrl()).into(binding.Foto);
+
 
     }
 

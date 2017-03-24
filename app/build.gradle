@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    //para activar el dataBinding :
+    dataBinding
+            {
+                enabled = true
+            }
 }
 
 dependencies {
@@ -28,4 +33,6 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    //para mostrar una imagen
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

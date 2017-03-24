@@ -22,16 +22,22 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
+import android.databinding.DataBindingUtil;
+
+import com.example.y2793623b.teams_players_info.databinding.FragmentMainBinding;
+
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
 
-    private ListView lvInfo;
+    //private ListView items_list;
     private ArrayList<Competition> items;
     private ArrayList<Equipo> itemsEquipo;
     private CompetitionAdapter adapter;
     private EquipoAdapter adapterEquipo;
+    private FragmentMainBinding binding;
 
     public MainActivityFragment() {
     }
@@ -43,13 +49,18 @@ public class MainActivityFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        //View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        lvInfo = (ListView) view.findViewById(R.id.items_list);
+        //lvInfo = (ListView) view.findViewById(R.id.items_list);
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
+
+        View view = binding.getRoot();
 
 
         items = new ArrayList<>();
@@ -58,16 +69,17 @@ public class MainActivityFragment extends Fragment {
                 R.layout.lv_list_row,
                 items);
 
+        //lvInfo.setAdapter(adapter);
+        binding.itemsList.setAdapter(adapter);
 
-        lvInfo.setAdapter(adapter);
 
 
 
-        lvInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.itemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if (adapterView.getItemAtPosition(position).getClass()==Competition.class) {
-                    Competition comp = (Competition) adapterView.getItemAtPosition(position);
+            public void onItemClick(AdapterView<?> item, View view, int position, long id) {
+                if (item.getItemAtPosition(position).getClass() == Competition.class) {
+                    Competition comp = (Competition) item.getItemAtPosition(position);
 //                Log.d("position ------->>>>> " , getString(position));
 
                     //intent para llamar info_activity
@@ -76,9 +88,9 @@ public class MainActivityFragment extends Fragment {
                     intent.putExtra("competition", comp);
                     //Llamar l'intent
                     startActivity(intent);
-                }/*
-                else if (adapterView.getItemAtPosition(position).getClass()==Equipo.class) {
-                    Equipo equipo = (Equipo) adapterView.getItemAtPosition(position);
+                }
+                else if (item.getItemAtPosition(position).getClass()==Equipo.class) {
+                    Equipo equipo = (Equipo) item.getItemAtPosition(position);
 
                     //intent para llamar Equipo_Inof
                     Intent intent2 = new Intent(getContext(), Equipo_Inof.class);
@@ -87,32 +99,41 @@ public class MainActivityFragment extends Fragment {
 
                     //Llamar l'intent
                     startActivity(intent2);
-                }*/
+                }
                 else {
-                    Log.d("No es de la clase competicion ni Equipo ------->>>>> " , " ");
+                    Log.d("Error : " , " El item seleccionado no es una competicion ni un Equipo. ");
                 }
             }
         });
 
-        lvInfo.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        binding.itemsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Competition comp = (Competition) parent.getItemAtPosition(position);
+            public boolean onItemLongClick(AdapterView<?> item, View view, int position, long id) {
 
-                getEquipos(comp.getTeamsLink());
+                if(item.getItemAtPosition(position).getClass() == Competition.class)
+                {
+                    Competition comp = (Competition) item.getItemAtPosition(position);
 
-                itemsEquipo = new ArrayList<>();
+                    getEquipos(comp.getTeamsLink());
 
-                for (Equipo ite :itemsEquipo) {
-                    Log.d("equipoNames : ----------------- : ", ite.getName());
+                    itemsEquipo = new ArrayList<>();
+
+                    for (Equipo ite :itemsEquipo) {
+                        Log.d("equipoNames : ----------------- : ", ite.getName());
+                    }
+
+                    adapterEquipo = new EquipoAdapter(
+                            getContext(),
+                            R.layout.lv_list_row,
+                            itemsEquipo);
+
+                    binding.itemsList.setAdapter(adapterEquipo);
+                }
+                else
+                {
+                    Log.d("ERROR : "," El item seleccionado no es una competicion");
                 }
 
-                adapterEquipo = new EquipoAdapter(
-                        getContext(),
-                        R.layout.lv_list_row,
-                        itemsEquipo);
-
-                lvInfo.setAdapter(adapterEquipo);
                 return false;
             }
 
@@ -159,6 +180,9 @@ public class MainActivityFragment extends Fragment {
 
     public void refresh() {
 
+        adapter.clear();
+        binding.itemsList.setAdapter(adapter);
+        Log.d("contenido ------------- > ", adapter.toString());
         RefreshDataTask task = new RefreshDataTask();
         task.execute();
 
@@ -208,14 +232,7 @@ public class MainActivityFragment extends Fragment {
             informationAPI api = new informationAPI();
 
             ArrayList<Competition> result = api.getCompeticion();
-            Log.d("devuelve : ", "holaaaaaaaaa");
-            Log.d("devuelve : ", result.get(2).toString());
-            /*
-            for (Competition comp :
-                    result) {
-                Log.d("devuelve : ", comp.getCaption());
-            }
-            */
+
             return result;
         }
 
