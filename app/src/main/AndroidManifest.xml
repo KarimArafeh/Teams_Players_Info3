@@ -28,6 +28,10 @@
             android:name=".Equipo_Inof"
             android:label="@string/title_activity_equipo__inof"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <provider
+            android:name=".RottenTomatoesContentProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false" />
     </application>
 
 </manifest>
