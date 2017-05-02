@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class informationAPI {
 
     //private final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
-    private final String BASE_URL = "http://api.football-data.org/v1/competitions";
+    private static final String BASE_URL = "http://api.football-data.org/v1/competitions";
 
-    ArrayList<Competition> getCompeticion() {
+    static ArrayList<Competition> getCompeticion() {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
 
@@ -29,7 +29,7 @@ public class informationAPI {
         return doCall(url);
     }
 
-    private ArrayList<Competition> doCall(String url) {
+    private static ArrayList<Competition> doCall(String url) {
         String JsonResponse = null;
         try {
             JsonResponse = HttpUtils.get(url);
@@ -41,7 +41,7 @@ public class informationAPI {
         return null;
     }
 
-    private ArrayList<Competition> processJson(String jsonResponse) {
+    private static ArrayList<Competition> processJson(String jsonResponse) {
 
         ArrayList<Competition> Competiciones = new ArrayList<>();
 
@@ -84,7 +84,7 @@ public class informationAPI {
 
   
 
-    public ArrayList<Equipo> getEquipo(String urlEquipo) {
+    public static ArrayList<Equipo> getEquipo(String urlEquipo) {
         Uri builtUri = Uri.parse(urlEquipo)
                 .buildUpon()
 
@@ -95,7 +95,7 @@ public class informationAPI {
         
     }
 
-    private ArrayList<Equipo> doCallEquipo(String url) {
+    private static ArrayList<Equipo> doCallEquipo(String url) {
         String JsonResponse = null;
         try {
 
@@ -108,7 +108,7 @@ public class informationAPI {
         return null;
     }
 
-    private ArrayList<Equipo> processJsonEquipo(String jsonResponse) {
+    private static ArrayList<Equipo> processJsonEquipo(String jsonResponse) {
         ArrayList<Equipo> equipos = new ArrayList<>();
 
         try {

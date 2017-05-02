@@ -2,6 +2,7 @@ package com.example.y2793623b.teams_players_info;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import android.net.Uri;
+import nl.littlerobots.cupboard.tools.provider.UriHelper;
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -196,53 +201,40 @@ public class MainActivityFragment extends Fragment {
       }
 
 
-    private class RefreshDataTask2 extends AsyncTask<Void, Void, ArrayList<Equipo>> {
+    private class RefreshDataTask2 extends AsyncTask<Void, Void, Void> {
 
         private String url;
 
         @Override
-        protected ArrayList<Equipo> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
             ArrayList<Equipo> result = api.getEquipo(url);
-            return result;
+            DataManager.deleteEquip(getContext());
+            DataManager.saveEquip(result, getContext());
+
+            return null;
         }
-        public RefreshDataTask2(String url)
-        {
+
+        public RefreshDataTask2(String url){
             this.url=url;
-        }
-        @Override
-        protected void onPostExecute(ArrayList<Equipo> equipos) {
-            adapterEquipo.clear();
-            for (Equipo equips : equipos)
-            {
-                Log.d("EQUIPO!! : ----------------- : ", equips.getName());
-                adapterEquipo.add(equips);
             }
-        }
     }
 
 
 
 
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Competition>> {
+
+    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected ArrayList<Competition> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
 
             ArrayList<Competition> result = api.getCompeticion();
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Competition> competitions) {
-            adapter.clear();
-            for (Competition compet : competitions)
-            {
-                adapter.add(compet);
-            }
+            DataManager.deleteCompet(getContext());
+            DataManager.saveCompet(result,getContext());
+            return null;
         }
     }
 
