@@ -40,7 +40,7 @@ public class MainActivityFragment extends Fragment {
     //private ListView items_list;
     private ArrayList<Competition> items;
     private ArrayList<Equipo> itemsEquipo;
-    private CompetitionAdapter adapter;
+    private CompetitionCursorAdapter adapter;
     private EquipoAdapter adapterEquipo;
     private FragmentMainBinding binding;
 
@@ -69,10 +69,8 @@ public class MainActivityFragment extends Fragment {
 
 
         items = new ArrayList<>();
-        adapter = new CompetitionAdapter(
-                getContext(),
-                R.layout.lv_list_row,
-                items);
+
+        adapter = new CompetitionCursorAdapter(getContext(),Competition.class);
 
         //lvInfo.setAdapter(adapter);
         binding.itemsList.setAdapter(adapter);
@@ -185,7 +183,7 @@ public class MainActivityFragment extends Fragment {
 
     public void refresh() {
 
-        adapter.clear();
+        
         binding.itemsList.setAdapter(adapter);
         Log.d("contenido ------------- > ", adapter.toString());
         RefreshDataTask task = new RefreshDataTask();
