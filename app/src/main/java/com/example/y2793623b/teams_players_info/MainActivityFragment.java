@@ -183,7 +183,7 @@ public class MainActivityFragment extends Fragment {
 
     public void refresh() {
 
-        
+
         binding.itemsList.setAdapter(adapter);
         Log.d("contenido ------------- > ", adapter.toString());
         RefreshDataTask task = new RefreshDataTask();
