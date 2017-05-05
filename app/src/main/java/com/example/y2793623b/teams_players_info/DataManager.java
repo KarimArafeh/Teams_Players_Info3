@@ -2,6 +2,7 @@ package com.example.y2793623b.teams_players_info;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.v4.content.CursorLoader;
 
 import java.util.ArrayList;
 
@@ -23,16 +24,23 @@ public class DataManager {
     }
 
     static void deleteCompet(Context context) {
-        cupboard().withContext(context).delete(COMPETITION_URI, "_id > ?", "1");
+        cupboard().withContext(context).delete(COMPETITION_URI, "_id > ?", "0");
         }
+
 
     static void saveEquip(ArrayList<Equipo> equipos, Context context) {
         cupboard().withContext(context).put(EQUIPO_URI, Equipo.class, equipos);
     }
 
     static void deleteEquip(Context context) {
-        cupboard().withContext(context).delete(EQUIPO_URI, "_id > ?", "1");
-        }
+        cupboard().withContext(context).delete(EQUIPO_URI, "_id > ?", "0");
+    }
+
+
+    static CursorLoader getCursorLoader(Context context)
+    {
+        return new CursorLoader(context, EQUIPO_URI, null, null, null, null);
+    }
 
 
 }

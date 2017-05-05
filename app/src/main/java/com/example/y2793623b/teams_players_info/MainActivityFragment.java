@@ -1,6 +1,7 @@
 package com.example.y2793623b.teams_players_info;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.renderscript.Sampler;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,10 +37,10 @@ import com.example.y2793623b.teams_players_info.databinding.FragmentMainBinding;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     //private ListView items_list;
-    private ArrayList<Competition> items;
+    //private ArrayList<Competition> items;
     private ArrayList<Equipo> itemsEquipo;
     private CompetitionCursorAdapter adapter;
     private EquipoAdapter adapterEquipo;
@@ -68,7 +70,7 @@ public class MainActivityFragment extends Fragment {
         View view = binding.getRoot();
 
 
-        items = new ArrayList<>();
+        //items = new ArrayList<>();
 
         adapter = new CompetitionCursorAdapter(getContext(),Competition.class);
 
@@ -142,7 +144,7 @@ public class MainActivityFragment extends Fragment {
 
         });
 
-
+        getLoaderManager().initLoader(0, null, this);
 
         return view;
 
@@ -197,6 +199,21 @@ public class MainActivityFragment extends Fragment {
         rft2.execute();
 
       }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return DataManager.getCursorLoader(getContext());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
+    }
 
 
     private class RefreshDataTask2 extends AsyncTask<Void, Void, Void> {
