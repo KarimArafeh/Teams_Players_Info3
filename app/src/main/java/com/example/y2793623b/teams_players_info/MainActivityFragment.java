@@ -1,5 +1,6 @@
 package com.example.y2793623b.teams_players_info;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -46,6 +47,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     private EquipoAdapter adapterEquipo;
     private FragmentMainBinding binding;
 
+    private ProgressDialog dialog;
+
     public MainActivityFragment() {
     }
 
@@ -73,6 +76,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         //items = new ArrayList<>();
 
         adapter = new CompetitionCursorAdapter(getContext(),Competition.class);
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("cargandoooooooooo *_* ");
 
         //lvInfo.setAdapter(adapter);
         binding.itemsList.setAdapter(adapter);
@@ -180,7 +186,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     public void onStart() {
         super.onStart();
 
-        refresh();
+        //refresh();
     }
 
     public void refresh() {
@@ -221,6 +227,12 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         private String url;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.show();
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
             ArrayList<Equipo> result = api.getEquipo(url);
@@ -228,6 +240,12 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             DataManager.saveEquip(result, getContext());
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialog.dismiss();
         }
 
         public RefreshDataTask2(String url){
@@ -243,6 +261,12 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.show();
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
 
@@ -250,6 +274,12 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             DataManager.deleteCompet(getContext());
             DataManager.saveCompet(result,getContext());
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialog.dismiss();
         }
     }
 
