@@ -27,13 +27,6 @@ public class Equipo_InofFragment extends Fragment {
 
 
     private View view;
-/*
-    private TextView textName;
-    private TextView textCode;
-    private TextView textShortName;
-    private TextView textValue;
-    private ImageView teamFoto;
- */
     private FragmentEquipoInofBinding binding;
 
 
@@ -44,7 +37,6 @@ public class Equipo_InofFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //view = inflater.inflate(R.layout.fragment_equipo__inof, container, false);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_equipo__inof, container, false);
 
         view = binding.getRoot();

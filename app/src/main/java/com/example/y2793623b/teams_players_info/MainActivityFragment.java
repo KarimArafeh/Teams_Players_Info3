@@ -40,8 +40,6 @@ import com.example.y2793623b.teams_players_info.databinding.FragmentMainBinding;
  */
 public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    //private ListView items_list;
-    //private ArrayList<Competition> items;
     private ArrayList<Equipo> itemsEquipo;
     private CompetitionCursorAdapter adapter;
     private EquipoAdapter adapterEquipo;
@@ -64,23 +62,16 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        //lvInfo = (ListView) view.findViewById(R.id.items_list);
-
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false);
 
         View view = binding.getRoot();
 
-
-        //items = new ArrayList<>();
 
         adapter = new CompetitionCursorAdapter(getContext(),Competition.class);
 
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("cargandoooooooooo *_* ");
 
-        //lvInfo.setAdapter(adapter);
         binding.itemsList.setAdapter(adapter);
 
 
@@ -91,7 +82,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             public void onItemClick(AdapterView<?> item, View view, int position, long id) {
                 if (item.getItemAtPosition(position).getClass() == Competition.class) {
                     Competition comp = (Competition) item.getItemAtPosition(position);
-//                Log.d("position ------->>>>> " , getString(position));
 
                     //intent para llamar info_activity
                     Intent intent = new Intent(getContext(), info_activity.class);
@@ -191,7 +181,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     public void refresh() {
 
-
         binding.itemsList.setAdapter(adapter);
         Log.d("contenido ------------- > ", adapter.toString());
         RefreshDataTask task = new RefreshDataTask();
@@ -199,22 +188,24 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     }
 
-    private void getEquipos(String url)
-    {
+    private void getEquipos(String url) {
         RefreshDataTask2 rft2 = new RefreshDataTask2(url);
         rft2.execute();
 
       }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return DataManager.getCursorLoader(getContext());
     }
 
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter.swapCursor(data);
     }
+
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -252,10 +243,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             this.url=url;
             }
     }
-
-
-
-
 
 
     private class RefreshDataTask extends AsyncTask<Void, Void, Void> {

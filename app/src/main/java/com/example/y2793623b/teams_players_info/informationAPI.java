@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class informationAPI {
 
-    //private final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
     private static final String BASE_URL = "http://api.football-data.org/v1/competitions";
 
     static ArrayList<Competition> getCompeticion() {
@@ -129,11 +128,7 @@ public class informationAPI {
                 equipo.setSquadMarketValue(jsonEquipos.getString("squadMarketValue"));
                 equipo.setCrestUrl(jsonEquipos.getString("crestUrl"));
 
-
-               // Log.d("dsgsdfg",equipo.toString());
-
                 equipos.add(equipo);
-
 
             }
 
