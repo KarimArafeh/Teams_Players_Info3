@@ -8,4 +8,8 @@
     <string name="number_of_games">Number Of Games</string>
     <string name="number_of_teams">Number Of Teams</string>
     <string name="year">Year</string>
+    <string name="code">Code</string>
+    <string name="name">Name</string>
+    <string name="shortname">shortName</string>
+    <string name="squadmarketvalue">squadMarketValue</string>
 </resources>
