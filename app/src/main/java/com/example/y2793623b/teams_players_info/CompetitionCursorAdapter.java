@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.example.y2793623b.teams_players_info.databinding.LvListRowBinding;
 
-import nl.qbusict.cupboard.Cupboard;
 
 
 /**

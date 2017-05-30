@@ -24,7 +24,7 @@ public class EquipoAdapter extends ArrayAdapter<Equipo> {
 
         // Obtenim l'objecte en la possició corresponent
         Equipo equipo = getItem(position);
-        Log.w("XXXX-------------", equipo.toString());
+        //Log.w("XXXX-------------", equipo.toString());
 
         // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
 
@@ -40,8 +40,6 @@ public class EquipoAdapter extends ArrayAdapter<Equipo> {
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         caption.setText(equipo.getName());
         league.setText(equipo.getCode());
-
-
 
 
 

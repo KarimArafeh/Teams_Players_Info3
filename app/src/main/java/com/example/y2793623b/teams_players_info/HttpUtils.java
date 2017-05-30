@@ -23,9 +23,9 @@ public class HttpUtils {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
         try {
-            Log.d("posicion1 : ", urlConnection.toString());
+            //Log.d("posicion1 : ", urlConnection.toString());
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            Log.d("posicion2 : ", "posicion 2");
+            //Log.d("posicion2 : ", "posicion 2");
             response = readStream(in);
 
         } finally {

@@ -45,7 +45,7 @@ public class Equipo_InofFragment extends Fragment {
 
 
         Intent i = getActivity().getIntent();
-        Log.d("intent ------- ",i.toString());
+        //Log.d("intent ------- ",i.toString());
         if (i != null) {
             Equipo equipo = (Equipo) i.getSerializableExtra("equipo");
 
@@ -58,7 +58,7 @@ public class Equipo_InofFragment extends Fragment {
     }
 
     private void updateUi(Equipo Team) {
-        Log.d("Equipo -------- >", Team.toString());
+        //Log.d("Equipo -------- >", Team.toString());
 
 
         binding.txtName.setText("Name : " + Team.getName());
@@ -67,12 +67,8 @@ public class Equipo_InofFragment extends Fragment {
         binding.txtMarketValue.setText("Market value : " + Team.getSquadMarketValue());
         if(binding.Foto != null){
             Glide.with(getContext()).load(Team.getCrestUrl()).into(binding.Foto);
-            Log.d("foto ---------si","");
-
         }else {
             Glide.with(getContext()).load(ic_launcher);
-            Log.d("foto ---------No","");
-
         }
 
 

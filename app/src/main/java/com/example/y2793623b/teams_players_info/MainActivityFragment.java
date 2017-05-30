@@ -119,10 +119,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
                     itemsEquipo = new ArrayList<>();
 
-                    for (Equipo ite :itemsEquipo) {
-                        Log.d("equipoNames : ----------------- : ", ite.getName());
-                    }
-
                     adapterEquipo = new EquipoAdapter(
                             getContext(),
                             R.layout.lv_list_row,
@@ -232,7 +228,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             adapterEquipo.clear();
             for (Equipo equips : equipos)
             {
-                Log.d("EQUIPO!! : ----------------- : ", equips.getName());
+                //Log.d("EQUIPO!! : ----------------- : ", equips.getName());
                 adapterEquipo.add(equips);
             }
         }

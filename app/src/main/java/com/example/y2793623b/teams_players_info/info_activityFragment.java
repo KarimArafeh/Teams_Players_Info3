@@ -34,7 +34,7 @@ public class info_activityFragment extends Fragment {
         view = binding.getRoot();
 
         Intent i = getActivity().getIntent();
-        Log.d("intent ------- ",i.toString());
+        //Log.d("intent ------- ",i.toString());
         if (i != null) {
             Competition comp = (Competition) i.getSerializableExtra("competition");
 
@@ -47,11 +47,12 @@ public class info_activityFragment extends Fragment {
         }
 
         private void updateUi(Competition competicion) {
-            Log.d("competition -------- >", competicion.toString());
+            //Log.d("competition -------- >", competicion.toString());
 
-            binding.txtCaption.setText("Caption : " + competicion.getCaption());
+            binding.txtCaption.setText(competicion.getCaption());
             binding.txtYear.setText("Year : " + competicion.getYear());
-            binding.txtNumTeams.setText("teams number : " + String.valueOf(competicion.getNumberOfTeams()));
+            binding.txtNumTeams.setText(String.valueOf(competicion.getNumberOfTeams()) + " teams");
+            binding.txtLeague.setText(competicion.getLeague());
             binding.txtNumOfGames.setText("Games number : " + String.valueOf(competicion.getNumberOfGames()));
             binding.txtLastUpdate.setText("Last update : " + String.valueOf(competicion.getLastUpdated()));
 

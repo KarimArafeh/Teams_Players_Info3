@@ -26,7 +26,7 @@ public class CompetitionAdapter extends ArrayAdapter<Competition>{
 
         // Obtenim l'objecte en la possició corresponent
         Competition compet = getItem(position);
-        Log.w("XXXX-------------", compet.toString());
+        //Log.w("XXXX-------------", compet.toString());
 
         // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
 
