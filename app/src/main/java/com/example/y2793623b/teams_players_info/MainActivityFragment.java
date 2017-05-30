@@ -197,7 +197,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return DataManager.getCursorLoader(getContext());
+        return DataManager.getCursorLoaderCompetition(getContext());
     }
 
 
@@ -213,39 +213,34 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     }
 
 
-    private class RefreshDataTask2 extends AsyncTask<Void, Void, Void> {
+    private class RefreshDataTask2 extends AsyncTask<Void, Void, ArrayList<Equipo>> {
 
         private String url;
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
+        protected ArrayList<Equipo> doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
             ArrayList<Equipo> result = api.getEquipo(url);
-            DataManager.deleteEquip(getContext());
-            DataManager.saveEquip(result, getContext());
-
-            return null;
+            return result;
         }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            dialog.dismiss();
-        }
-
-        public RefreshDataTask2(String url){
+        public RefreshDataTask2(String url)
+        {
             this.url=url;
+        }
+        @Override
+        protected void onPostExecute(ArrayList<Equipo> equipos) {
+            adapterEquipo.clear();
+            for (Equipo equips : equipos)
+            {
+                Log.d("EQUIPO!! : ----------------- : ", equips.getName());
+                adapterEquipo.add(equips);
             }
+        }
     }
 
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
+
+    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Competition>> {
 
         @Override
         protected void onPreExecute() {
@@ -254,19 +249,16 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected ArrayList<Competition> doInBackground(Void... voids) {
             informationAPI api = new informationAPI();
-
-            ArrayList<Competition> result = api.getCompeticion();
-            DataManager.deleteCompet(getContext());
-            DataManager.saveCompet(result,getContext());
-            return null;
+            return api.getCompeticion();
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(ArrayList<Competition> result) {
             dialog.dismiss();
+            DataManager.deleteCompet(getContext());
+            DataManager.saveCompet(result,getContext());
         }
     }
 

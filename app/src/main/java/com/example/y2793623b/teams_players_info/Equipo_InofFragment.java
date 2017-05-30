@@ -20,6 +20,8 @@ import android.databinding.DataBindingUtil;
 
 import com.example.y2793623b.teams_players_info.databinding.FragmentEquipoInofBinding;
 
+import static com.example.y2793623b.teams_players_info.R.mipmap.ic_launcher;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -63,7 +65,15 @@ public class Equipo_InofFragment extends Fragment {
         binding.txtCode.setText("Code : " + Team.getCode());
         binding.txtShortName.setText("Short Name : " + Team.getShortName());
         binding.txtMarketValue.setText("Market value : " + Team.getSquadMarketValue());
-        Glide.with(getContext()).load(Team.getCrestUrl()).into(binding.Foto);
+        if(binding.Foto != null){
+            Glide.with(getContext()).load(Team.getCrestUrl()).into(binding.Foto);
+            Log.d("foto ---------si","");
+
+        }else {
+            Glide.with(getContext()).load(ic_launcher);
+            Log.d("foto ---------No","");
+
+        }
 
 
     }

@@ -3,6 +3,7 @@ package com.example.y2793623b.teams_players_info;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.content.CursorLoader;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ public class DataManager {
 
     static void saveCompet(ArrayList<Competition> competition, Context context) {
         cupboard().withContext(context).put(COMPETITION_URI, Competition.class, competition);
+        Log.d("COMPETITION", "IN-COMPETITION");
     }
 
     static void deleteCompet(Context context) {
@@ -40,6 +42,11 @@ public class DataManager {
     static CursorLoader getCursorLoader(Context context)
     {
         return new CursorLoader(context, EQUIPO_URI, null, null, null, null);
+    }
+
+    static CursorLoader getCursorLoaderCompetition(Context context)
+    {
+        return new CursorLoader(context, COMPETITION_URI, null, null, null, null);
     }
 
 
