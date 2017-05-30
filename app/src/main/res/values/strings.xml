@@ -3,4 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_info_activity">info_activity</string>
     <string name="title_activity_equipo__inof">Equipo_Inof</string>
+    <string name="caption">Caption</string>
+    <string name="last_update">Last Update</string>
+    <string name="number_of_games">Number Of Games</string>
+    <string name="number_of_teams">Number Of Teams</string>
+    <string name="year">Year</string>
 </resources>
